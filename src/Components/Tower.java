@@ -1,4 +1,5 @@
 package Components;
+import Game.*;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -7,10 +8,9 @@ import java.awt.Graphics2D;
 import java.util.EmptyStackException;
 import java.util.Stack;
 import javax.swing.JPanel;
-import Game.*;
 
 public class Tower extends JPanel {
-    public Stack<Disk> stack;
+    public final Stack<Disk> stack;
     public Game game;
 
     private static final Color[] colors = new Color[] {Color.red, Color.orange, Color.yellow,
@@ -53,16 +53,21 @@ public class Tower extends JPanel {
      * Draw this tower's representative pyramid with the appropriate amount of whitespace above it.
      */
     private void drawPyramid(Graphics2D g) {
-        int Ycurr = getHeight();
-        for (Disk disk: stack) {
-            Ycurr -= 20;
-            g.setColor(colors[disk.weight() % 6]);
-            g.fillRect((getWidth()/2)-(disk.weight()*5), Ycurr, disk.weight()*10, 20);
-        }
+        synchronized (g) {
+            int Ycurr = getHeight();
+            synchronized(stack) {
+                for (Disk disk: stack) {
+                    Ycurr -= 20;
+                    g.setColor(colors[disk.weight() % 6]);
+                    g.fillRect((getWidth()/2)-(disk.weight()*5), Ycurr, disk.weight()*10, 20);
+                }
+            }
         while (Ycurr > 0) {
             Ycurr -= 20;
             g.fillRect(getWidth()/2, Ycurr, 0, 20);
         }
+        }
+        
     }
 
     @Override

@@ -1,7 +1,6 @@
 package Components;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 

@@ -80,8 +80,6 @@ public class Game extends JPanel implements Runnable {
      * time.
      */
     public void updateGame() throws InterruptedException {
-        numMoves = numMoves + 1;
-        GameManager.refresh();
         synchronized(this) {
             if (speed > 0) {
                 wait(speed);
@@ -90,6 +88,8 @@ public class Game extends JPanel implements Runnable {
                     throw new InterruptedException();
                 }
             }
+            numMoves = numMoves + 1;
+            GameManager.refresh();
         }
     }
 
