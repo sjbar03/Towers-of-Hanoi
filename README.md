@@ -13,6 +13,6 @@
 
   Navigate to /src
 
-  $ javac Components/*.java Game/*.java
+  $ javac Components/\*.java Game/\*.java
 
   $ java Game/GameManager
